@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article search</title>
+</head>
+<body>
+    <h1>Article search</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="/">
+        <label for="user_input">Wprowadź tekst:</label>
+        <input type="text" id="user_input" name="user_input" required>
+        <!-- Centered section -->
+        <div style="text-align: center;">
+            <label for="min_reference_count" class="right-align">Min Reference Count:</label>
+            <input type="number" id="min_reference_count" name="min_reference_count">
+
+            <label for="citation_count_min" class="right-align">Min Citation Count:</label>
+            <input type="number" id="citation_count_min" name="citation_count_min">
+
+            <label for="publication_date_min" class="right-align">Min Publication Date:</label>
+            <input type="date" id="publication_date_min" name="publication_date_min">
+
+            <label for="publication_date_max" class="right-align">Max Publication Date:</label>
+            <input type="date" id="publication_date_max" name="publication_date_max">
+        </div>
+        <!-- End of centered section -->
+
+        <br> <!-- Add a line break here -->
+        <button type="submit">Wyślij</button>
+    </form>
+<!--    def calculate_measures(query_text, min_reference_count, citation_count_min, publication_date_min, publication_date_max):-->
+<!--    df = pd.read_csv('systemy_dane_oczyszczone.csv')-->
+<!--    if min_reference_count != "":-->
+<!--        df = df[df['referenceCount'] >= int(min_reference_count)]-->
+
+<!--    if citation_count_min != "":-->
+<!--        df = df[df['citationCount'] <= int(citation_count_min)]-->
+
+<!--    if publication_date_min != "":-->
+<!--        df = df[df['publicationDate'] >= publication_date_min]-->
+
+<!--    if publication_date_max != "":-->
+<!--        df = df[df['publicationDate'] <= publication_date_max]-->
+
+
+
+    {% if result %}
+        <h2>Results:</h2>
+        <ul>
+            {% for item in result %}
+                <li>
+                    <strong>Similarity Measures:</strong> {{ item[0] }} | {{ item[1] }} | {{ item[2] }} | {{ item[3] }}<br>
+                    <strong>Title:</strong> {{ item[4] }}<br>
+                    <strong>Publication date:</strong> {{ item[5] }}<br>
+                    <strong>Reference count:</strong> {{ item[6] }}<br>
+                    <strong>Venue:</strong> {{ item[7] }}<br>
+                    <strong>Field of Study:</strong> {{ item[8] }}<br>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+<!--    top_3_articles = sorted_articles[:5]-->
+<!--    for article in top_3_articles:-->
+<!--        id_of_article = article[4]-->
+<!--        article.pop(4)-->
+<!--        article_info = df.iloc[id_of_article]-->
+<!--        article.append(article_info['title'])-->
+<!--        article.append(article_info['abstract'])-->
+<!--        article.append(article_info['publicationDate'])-->
+<!--        article.append(article_info['referenceCount'])-->
+
+
+<!--        article.append(article_info['venue'])-->
+<!--        article.append(article_info['fieldsOfStudy'])-->
+<!--        # article.pop(4)-->
