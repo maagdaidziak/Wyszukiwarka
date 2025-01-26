@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: sans-serif; /* Użyj czcionki sans-serif dla lepszej czytelności */
+            margin: 20px;
+            background-color: #f0f0f0; /* Jasnoszare tło */
+            color: #444; /* Ciemniejszy szary kolor tekstu */
+        }
+
+        h1 {
+            color: #007bff; /* Niebieski kolor nagłówka */
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Dodanie delikatnego cienia */
+        }
+
+        .no-data {
+            color: #888; /* Kolor dla komunikatów o braku danych */
+        }
+
+        /* Opcjonalnie: Style dla kontenera wykresu */
+        .chart-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+
+    <p><strong>Abstract:</strong></p>
+    <p>{{ abstract }}</p>
+
+    <p><strong>Author names:</strong></p>
+    <p>{{ author_names }}</p>
+
+    <h2>Top 10 Most Common Words</h2>
+
+    {% if top_words %}
+        <ul>
+            {% for word, count in top_words %}
+                <li>{{ word }} ({{ count }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p> No data to show. </p>
+    {% endif %}
+
+
+    <h2>Word Frequency Visualization</h2>
+    {% if plot_url %}
+        {{plot_url | safe}}
+    {% else %}
+        <p>No chart to display. </p>
+    {% endif %}
+
+    <a href="/">Back to search</a>
+</body>
+</html>
